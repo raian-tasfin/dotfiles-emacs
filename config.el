@@ -29,10 +29,9 @@
 
 (add-hook 'org-mode-hook #'org-num-mode)
 
-(use-package org-make-toc
-  :requires dash
+(use-package toc-org
   :config
-  (setq org-make-toc-insert-custom-ids t))
+  (add-hook 'org-mode-hook 'toc-org-mode))
 
 (setq-default c-basic-offset 4)
 

@@ -6,31 +6,35 @@
 To turn any feature on/off comment/uncomment the section. The key
 binding for toggling org mode section comments is `C-;'.
 
-* Table of Contents
-  :PROPERTIES:
-  :UNNUMBERED: t
-  :TOC:      :include all :ignore this
-  :END:
-
-:CONTENTS:
-:END:
+* Table of Contents                                                     :TOC:
+- [[#minor-editing-modes][Minor Editing Modes]]
+  - [[#drag-stuff-mode][Drag Stuff Mode]]
+  - [[#evil-mode][Evil Mode]]
+  - [[#multiple-cursors][Multiple Cursors]]
+  - [[#title-case][Title case]]
+- [[#major-modes][Major Modes]]
+  - [[#org-mode][Org Mode]]
+  - [[#c-mode][C Mode]]
+- [[#default-emacs-options][Default Emacs Options]]
+- [[#appearance][Appearance]]
+  - [[#start-message][Start Message]]
+  - [[#tool-bar][Tool Bar]]
+  - [[#menu-bar][Menu Bar]]
+  - [[#typeface-and-font][Typeface and Font]]
+  - [[#line-numbering][Line Numbering]]
+  - [[#theme][Theme]]
+  - [[#spaceline][Spaceline]]
+- [[#editing][Editing]]
+  - [[#default-indentation][Default Indentation]]
+  - [[#small-default-configs][Small Default Configs]]
 
 * Minor Editing Modes
-  :PROPERTIES:
-  :CUSTOM_ID: minor-editing-modes
-  :END:
 ** Drag Stuff Mode
-   :PROPERTIES:
-   :CUSTOM_ID: drag-stuff-mode
-   :END:
    This caused a bit of a headache. This minor mode interferes with
    org-mode. We choose to disable it on org mode.
 
 *** Installation
-    :PROPERTIES:
-    :CUSTOM_ID: installation
-    :END:
- #+BEGIN_SRC emacs-lisp
+    #+BEGIN_SRC emacs-lisp
     (use-package drag-stuff
       :config
       (drag-stuff-global-mode 1)
@@ -38,26 +42,17 @@ binding for toggling org mode section comments is `C-;'.
     #+END_SRC
 
 *** Disabling On Org Mode
-    :PROPERTIES:
-    :CUSTOM_ID: disabling-on-org-mode
-    :END:
     #+BEGIN_SRC emacs-lisp
     (add-hook 'org-mode-hook (lambda () (drag-stuff-mode -1)))
     #+END_SRC
 
 ** Evil Mode
-   :PROPERTIES:
-   :CUSTOM_ID: evil-mode
-   :END:
    Issues to fix
    1. Evil mode overrides yanking and killing key-bindings of
       emacs. Could not override them successfully. Setting new
       keybindings for yank, yanks last kill character by character.
 
 *** Basic Installation
-    :PROPERTIES:
-    :CUSTOM_ID: basic-installation
-    :END:
     #+BEGIN_SRC emacs-lisp
     (use-package evil
       :init
@@ -65,9 +60,6 @@ binding for toggling org mode section comments is `C-;'.
     #+END_SRC
     
 ** Multiple Cursors
-   :PROPERTIES:
-   :CUSTOM_ID: multiple-cursors
-   :END:
    With bar cursors, the extra cursors are not visible. To make it
    visible the extra options are necessary. Although, I still cannot
    find a way to make the extra cursors thick.  
@@ -82,9 +74,6 @@ binding for toggling org mode section comments is `C-;'.
    #+END_SRC
 
 *** Mark Next and Previous Like This
-    :PROPERTIES:
-    :CUSTOM_ID: mark-next-and-previous-like-this
-    :END:
     #+BEGIN_SRC emacs-lisp
     (use-package multiple-cursors
       :config
@@ -93,9 +82,6 @@ binding for toggling org mode section comments is `C-;'.
     #+END_SRC
 
 *** Mark All Like This
-    :PROPERTIES:
-    :CUSTOM_ID: mark-all-like-this
-    :END:
     #+BEGIN_SRC emacs-lisp
     (use-package multiple-cursors
       :config
@@ -103,48 +89,28 @@ binding for toggling org mode section comments is `C-;'.
     #+END_SRC
 
 ** Title case
-   :PROPERTIES:
-   :CUSTOM_ID: title-case
-   :END:
    #+BEGIN_SRC emacs-lisp
    (use-package titlecase)
    #+END_SRC
 
 * Major Modes
-  :PROPERTIES:
-  :CUSTOM_ID: major-modes
-  :END:
 ** Org Mode
-   :PROPERTIES:
-   :CUSTOM_ID: org-mode
-   :END:
    Minor options for org mode.
 *** org-num-mode
-    :PROPERTIES:
-    :CUSTOM_ID: org-num-mode
-    :END:
     Show section numbers in org mode by default.
 
     #+BEGIN_SRC emacs-lisp
     (add-hook 'org-mode-hook #'org-num-mode)
     #+END_SRC
-*** org-make-toc
-    :PROPERTIES:
-    :CUSTOM_ID: org-make-toc
-    :END:
-    This package requires dash
 
+*** toc-org
     #+BEGIN_SRC emacs-lisp
-    (use-package org-make-toc
-      :requires dash
+    (use-package toc-org
       :config
-      (setq org-make-toc-insert-custom-ids t))
+      (add-hook 'org-mode-hook 'toc-org-mode))
     #+END_SRC
 
 ** C Mode
-   :PROPERTIES:
-   :CUSTOM_ID: c-mode
-   :END:
 *** Indentation
     :PROPERTIES:
     :CUSTOM_ID: indentation
@@ -153,22 +119,13 @@ binding for toggling org mode section comments is `C-;'.
     (setq-default c-basic-offset 4)
     #+END_SRC
 * Default Emacs Options
-  :PROPERTIES:
-  :CUSTOM_ID: default-emacs-options
-  :END:
   #+BEGIN_SRC emacs-lisp
   (setq auto-save-file-name-transforms
 	`((".*" ,temporary-file-directory t)))
   #+END_SRC
 
 * Appearance
-  :PROPERTIES:
-  :CUSTOM_ID: appearance
-  :END:
 ** Start Message
-   :PROPERTIES:
-   :CUSTOM_ID: start-message
-   :END:
    Hide the starting message message
    
    #+BEGIN_SRC emacs-lisp
@@ -184,9 +141,6 @@ binding for toggling org mode section comments is `C-;'.
    #+END_SRC
 
 ** Tool Bar
-   :PROPERTIES:
-   :CUSTOM_ID: tool-bar
-   :END:
    Hide graphic tool bar
 
    #+BEGIN_SRC emacs-lisp 
@@ -194,9 +148,6 @@ binding for toggling org mode section comments is `C-;'.
    #+END_SRC
 
 ** Menu Bar
-   :PROPERTIES:
-   :CUSTOM_ID: menu-bar
-   :END:
    Hide graphic menu bar
 
    #+BEGIN_SRC emacs-lisp 
@@ -204,34 +155,22 @@ binding for toggling org mode section comments is `C-;'.
    #+END_SRC
    
 ** Typeface and Font
-   :PROPERTIES:
-   :CUSTOM_ID: typeface-and-font
-   :END:
    #+BEGIN_SRC emacs-lisp
    (set-frame-font "Fira Code-11.5" nil t)
    #+END_SRC
 
 ** Line Numbering
-   :PROPERTIES:
-   :CUSTOM_ID: line-numbering
-   :END:
    #+BEGIN_SRC emacs-lisp
    (setq display-line-numbers-type 'relative)
    (global-display-line-numbers-mode)
    #+END_SRC
 
 ** Theme
-   :PROPERTIES:
-   :CUSTOM_ID: theme
-   :END:
    To enable or disable any option, comment or uncomment that section
    respectively. The current shortcut for toggling comments is C-;
    . For confirmation, see 
 
 *** modus-operandi-tinted
-    :PROPERTIES:
-    :CUSTOM_ID: modus-operandi-tinted
-    :END:
     A modus light tinted theme. The default right now.
     #+BEGIN_SRC emacs-lisp
     (use-package modus-themes
@@ -270,9 +209,6 @@ binding for toggling org mode section comments is `C-;'.
    of it and comment the configs for other themes.
 
 ** Spaceline
-   :PROPERTIES:
-   :CUSTOM_ID: spaceline
-   :END:
    Ripped off the internet 
 
    #+BEGIN_SRC emacs-lisp
@@ -298,44 +234,27 @@ binding for toggling org mode section comments is `C-;'.
    #+END_SRC
    
 * Editing
-  :PROPERTIES:
-  :CUSTOM_ID: editing
-  :END:
 ** Default Indentation
-   :PROPERTIES:
-   :CUSTOM_ID: default-indentation
-   :END:
    #+BEGIN_SRC emacs-lisp
    (setq default-tab-width 4)
    #+END_SRC
 ** Small Default Configs
-   :PROPERTIES:
-   :CUSTOM_ID: small-default-configs
-   :END:
 
 *** Auto Fill Mode
-    :PROPERTIES:
-    :CUSTOM_ID: auto-fill-mode
-    :END:
     #+BEGIN_SRC emacs-lisp
     (setq-default auto-fill-function 'do-auto-fill)
     #+END_SRC
 
 *** Electric Pair Mode
-    :PROPERTIES:
-    :CUSTOM_ID: electric-pair-mode
-    :END:
     Match parenthesis.
     #+BEGIN_SRC emacs-lisp
     (electric-pair-mode 1)
     #+END_SRC
 
 *** Fly-Spell Enabled by Default
-    :PROPERTIES:
-    :CUSTOM_ID: fly-spell-enabled-by-default
-    :END:
     #+BEGIN_SRC emacs-lisp
     (dolist (hook '(text-mode-hook))
       (add-hook hook (lambda () (flyspell-mode 1))))
     #+END_SRC
 
+    
