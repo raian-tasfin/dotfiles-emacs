@@ -1,21 +1,43 @@
 (use-package drag-stuff
-:config
+  :config
   (drag-stuff-global-mode 1)
   (drag-stuff-define-keys))
 
 (add-hook 'org-mode-hook (lambda () (drag-stuff-mode -1)))
 
+(use-package evil
+  :init
+  (evil-mode 1))
+
+(use-package multiple-cursors
+  :init
+  (setq-default cursor-type '(bar . 2.5))
+  (custom-set-faces
+   '(mc/cursor-bar-face 
+     ((t(:background "brown"))))))
+
+(use-package multiple-cursors
+  :config
+  (global-set-key (kbd "C->") 'mc/mark-next-like-this)
+  (global-set-key (kbd "C-<") 'mc/mark-previous-like-this))
+
+(use-package multiple-cursors
+  :config
+  (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this))
+
+(use-package titlecase)
+
 (add-hook 'org-mode-hook #'org-num-mode)
 
 (use-package org-make-toc
-:requires dash
-:init
+  :requires dash
+  :config
   (setq org-make-toc-insert-custom-ids t))
 
 (setq-default c-basic-offset 4)
 
 (setq auto-save-file-name-transforms
-  `((".*" ,temporary-file-directory t)))
+      `((".*" ,temporary-file-directory t)))
 
 (setq inhibit-startup-message t)
 
@@ -39,7 +61,7 @@
   (spaceline-toggle-buffer-encoding-off)
   (spaceline-toggle-buffer-encoding-abbrev-off)
   (setq spaceline-highlight-face-func 
-    'spaceline-highlight-face-evil-state)
+	'spaceline-highlight-face-evil-state)
   (spaceline-define-segment line-column
     "The current line and column numbers."
     "l:%l c:%2c")

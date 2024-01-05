@@ -21,10 +21,10 @@
  ;; If there is more than one, they won't work right.
  '(ispell-dictionary nil)
  '(package-selected-packages
-   '(drag-stuff org-make-toc spaceline modus-themes yasnippet-snippets cmake-mode)))
+   '(titlecase evil drag-stuff spaceline modus-themes yasnippet-snippets cmake-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(mc/cursor-bar-face ((t (:background "brown")))))
