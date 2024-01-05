@@ -6,6 +6,37 @@
 To turn any feature on/off comment/uncomment the section. The key
 binding for toggling org mode section comments is `C-;'.
 
+* Table of Contents
+  :PROPERTIES:
+  :UNNUMBERED: t
+  :TOC:      :include all :ignore this
+  :END:
+
+:CONTENTS:
+- [[#major-modes][Major Modes]]
+  - [[#org-mode][Org Mode]]
+    - [[#org-num-mode][org-num-mode]]
+    - [[#org-make-toc][org-make-toc]]
+  - [[#c-mode][C Mode]]
+    - [[#indentation][Indentation]]
+- [[#default-emacs-options][Default Emacs Options]]
+- [[#appearance][Appearance]]
+  - [[#start-message][Start Message]]
+  - [[#tool-bar][Tool Bar]]
+  - [[#menu-bar][Menu Bar]]
+  - [[#typeface-and-font][Typeface and Font]]
+  - [[#line-numbering][Line Numbering]]
+  - [[#theme][Theme]]
+    - [[#modus-operandi-tinted][modus-operandi-tinted]]
+  - [[#spaceline][Spaceline]]
+- [[#editing][Editing]]
+  - [[#default-indentation][Default Indentation]]
+  - [[#small-default-configs][Small Default Configs]]
+    - [[#auto-fill-mode][Auto Fill Mode]]
+    - [[#electric-pair-mode][Electric Pair Mode]]
+    - [[#fly-spell-enabled-by-default][Fly-Spell Enabled by Default]]
+:END:
+
 * Major Modes
   :PROPERTIES:
   :CUSTOM_ID: major-modes
@@ -23,6 +54,18 @@ binding for toggling org mode section comments is `C-;'.
     #+BEGIN_SRC emacs-lisp
     (add-hook 'org-mode-hook #'org-num-mode)
     #+END_SRC
+*** org-make-toc
+    :PROPERTIES:
+    :CUSTOM_ID: org-make-toc
+    :END:
+    This package requires dash
+    #+BEGIN_SRC emacs-lisp
+    (use-package org-make-toc
+    :requires dash
+    :init
+      (setq org-make-toc-insert-custom-ids t))
+    #+END_SRC
+
 ** C Mode
    :PROPERTIES:
    :CUSTOM_ID: c-mode

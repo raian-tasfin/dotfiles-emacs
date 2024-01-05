@@ -1,5 +1,10 @@
 (add-hook 'org-mode-hook #'org-num-mode)
 
+(use-package org-make-toc
+:requires dash
+:init
+  (setq org-make-toc-insert-custom-ids t))
+
 (setq-default c-basic-offset 4)
 
 (setq auto-save-file-name-transforms
