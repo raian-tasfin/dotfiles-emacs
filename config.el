@@ -1,3 +1,10 @@
+(use-package drag-stuff
+:config
+  (drag-stuff-global-mode 1)
+  (drag-stuff-define-keys))
+
+(add-hook 'org-mode-hook (lambda () (drag-stuff-mode -1)))
+
 (add-hook 'org-mode-hook #'org-num-mode)
 
 (use-package org-make-toc

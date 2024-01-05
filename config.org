@@ -37,6 +37,30 @@ binding for toggling org mode section comments is `C-;'.
     - [[#fly-spell-enabled-by-default][Fly-Spell Enabled by Default]]
 :END:
 
+* Minor Modes
+** Editing Related
+*** Drag Stuff Mode
+    :PROPERTIES:
+    :CUSTOM_ID: drag-stuff-mode
+    :END:
+    
+    This caused a bit of a headache. This minor mode interferes with
+    org-mode. We choose to disable it on org mode.
+**** Installation
+     :PROPERTIES:
+     :CUSTOM_ID: installation-0
+     :END:
+    #+BEGIN_SRC emacs-lisp
+    (use-package drag-stuff
+    :config
+      (drag-stuff-global-mode 1)
+      (drag-stuff-define-keys))
+    #+END_SRC
+
+**** Disabling On Org Mode
+     #+BEGIN_SRC emacs-lisp
+     (add-hook 'org-mode-hook (lambda () (drag-stuff-mode -1)))
+     #+END_SRC
 * Major Modes
   :PROPERTIES:
   :CUSTOM_ID: major-modes

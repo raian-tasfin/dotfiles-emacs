@@ -21,7 +21,7 @@
  ;; If there is more than one, they won't work right.
  '(ispell-dictionary nil)
  '(package-selected-packages
-   '(org-make-toc spaceline modus-themes yasnippet-snippets cmake-mode)))
+   '(drag-stuff org-make-toc spaceline modus-themes yasnippet-snippets cmake-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
