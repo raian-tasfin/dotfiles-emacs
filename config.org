@@ -24,6 +24,7 @@ binding for toggling org mode section comments is `C-;'.
 - [[#major-modes][Major Modes]]
   - [[#org-mode][Org Mode]]
   - [[#c-mode][C Mode]]
+  - [[#java][Java]]
 - [[#default-emacs-options][Default Emacs Options]]
 - [[#appearance][Appearance]]
   - [[#start-message][Start Message]]
@@ -132,6 +133,7 @@ binding for toggling org mode section comments is `C-;'.
    (use-package company
      :init (global-set-key (kbd "C-<tab>") 'company-yasnippet) 
      :after lsp-mode
+     :config (global-company-mode)
      :hook (prog-mode . company-mode)
      :bind (:map company-active-map
 		 ("<tab>" . company-complete-selection)
@@ -206,6 +208,13 @@ binding for toggling org mode section comments is `C-;'.
     #+BEGIN_SRC emacs-lisp
     (setq-default c-basic-offset 4)
     #+END_SRC
+** Java 
+   #+BEGIN_SRC emacs-lisp
+   (use-package lsp-java
+     :config
+     (add-hook 'java-mode-hook #'lsp))
+   #+END_SRC
+
 * Default Emacs Options
   #+BEGIN_SRC emacs-lisp
   (setq auto-save-file-name-transforms

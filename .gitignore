@@ -1,5 +1,6 @@
 .cache/*
 ~\*
-./auto-save-list/.*
+auto-save-list/
 .lsp-session-v1
 .*~undo-tree~
+workspace/

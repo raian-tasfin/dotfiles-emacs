@@ -45,6 +45,7 @@
 (use-package company
   :init (global-set-key (kbd "C-<tab>") 'company-yasnippet) 
   :after lsp-mode
+  :config (global-company-mode)
   :hook (prog-mode . company-mode)
   :bind (:map company-active-map
 	      ("<tab>" . company-complete-selection)
@@ -80,6 +81,10 @@
   (add-hook 'org-mode-hook 'toc-org-mode))
 
 (setq-default c-basic-offset 4)
+
+(use-package lsp-java
+  :config
+  (add-hook 'java-mode-hook #'lsp))
 
 (setq auto-save-file-name-transforms
       `((".*" ,temporary-file-directory t)))
