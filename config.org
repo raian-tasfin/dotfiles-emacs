@@ -302,4 +302,3 @@ binding for toggling org mode section comments is `C-;'.
       (add-hook hook (lambda () (flyspell-mode 1))))
     #+END_SRC
 
-    
