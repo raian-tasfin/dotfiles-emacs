@@ -1,0 +1,21 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define newline   '\n'
+#define begend(x) (x).begin(), (x).end()
+#define int       int64_t
+#define debug(x)  cout<< ">>> " << #x << ": " << x << newline;32_t
+
+void solve_case()
+{
+        $0
+
+        return;
+}
+
+int32_t main()
+{
+        solve_case();
+
+        return 0;
+}

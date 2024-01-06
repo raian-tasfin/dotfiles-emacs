@@ -1,0 +1,29 @@
+## COMMANDS
+CC = $1
+RM = rm
+MV = -mv
+MK = make
+
+## flags
+CFLAGS = -Werror -Wextra -pedantic -std=$2
+
+## files
+SRC = ./src/*.$3
+OBJ = *.o
+
+.PHONY: all clean
+
+all:
+    $(MK) run
+    $(MK) clean
+run: $(SRC)
+     $(CC) $(CFLAGS) -c $(SRC)
+     $(CC) $(CFLAGS) -o $@ $(OBJ)
+clean:
+    $(RM) -f $(OBJ)
+debug:
+    $(CC) $(CFLAGS) -g3 -c $(SRC)
+    $(CC) $(CFLAGS) -g3 -o $@ $(OBJ)
+preprocess:
+    $(RM) -f ./preprocessed/main.i
+    $(CC) $(CFLAGS) -E $(SRC) > ./preprocessed/main.i

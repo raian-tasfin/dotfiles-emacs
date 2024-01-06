@@ -6,6 +6,8 @@
 (setq mc/cmds-to-run-for-all
       '(
 	end-of-buffer
+	evil-delete-backward-char-and-join
+	evil-delete-char
 	indent-for-tab-command
 	org-beginning-of-line
 	org-cycle

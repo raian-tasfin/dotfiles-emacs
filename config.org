@@ -17,8 +17,10 @@ binding for toggling org mode section comments is `C-;'.
   - [[#installing-lsp][Installing LSP]]
   - [[#company-mode][company-mode]]
   - [[#company-box][company-box]]
+  - [[#lsp-for-latex-lsp-latex][LSP for LaTeX lsp-latex]]
   - [[#lsp-ui][lsp-ui]]
   - [[#snippets][Snippets]]
+  - [[#yasnippet][Yasnippet]]
 - [[#major-modes][Major Modes]]
   - [[#org-mode][Org Mode]]
   - [[#c-mode][C Mode]]
@@ -111,36 +113,53 @@ binding for toggling org mode section comments is `C-;'.
      (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) 
      (helm-mode 1)) 
    #+END_SRC
-
+   
 * Auto-completion and LSP
 ** Installing LSP
    Here we install lsp and disable annoying auto-formatting. 
    #+BEGIN_SRC emacs-lisp
    (use-package lsp-mode
-   :config
-   (setq lsp-enable-on-type-formatting nil)
-   (setq lsp-completion-provider :none))
+     :config
+     (setq lsp-enable-on-type-formatting nil)
+     ;; (setq lsp-completion-provider :capf)
+     (add-hook 'prog-mode-hook #'lsp))
    #+END_SRC
 
 ** company-mode
-   Integrating with lsp.
+   Integrating with lsp and yasnippet. Company does not automatically
+   show yasnippet entries on tab. The shortcut for that is C-c y.
    #+BEGIN_SRC emacs-lisp
    (use-package company
+     :init (global-set-key (kbd "C-<tab>") 'company-yasnippet) 
      :after lsp-mode
      :hook (prog-mode . company-mode)
      :bind (:map company-active-map
-		 ("<tab>" . company-complete-selection))
-     (:map lsp-mode-map
-           ("<tab>" . company-indent-or-complete-common))
+		 ("<tab>" . company-complete-selection)
+		 (:map lsp-mode-map
+		       ("<tab>" . company-indent-or-complete-common)))
      :custom
      (company-minimum-prefix-length 1)
-     (company-idle-delay 0.0))
+     (company-idle-delay 0.0)
+     (add-hook 'after-init-hook 'global-company-mode))
    #+END_SRC
 
 ** company-box
    #+BEGIN_SRC emacs-lsip
    (use-package company-box
    :hook (company-mode . company-box-mode))
+   #+END_SRC
+
+** LSP for LaTeX lsp-latex
+   #+BEGIN_SRC emacs-lisp
+   (use-package lsp-latex
+     :config
+     (with-eval-after-load "tex-mode"
+       (add-hook 'tex-mode-hook 'lsp)
+       (add-hook 'latex-mode-hook 'lsp))
+     (with-eval-after-load "yatex"
+       (add-hook 'yatex-mode-hook 'lsp))
+     (with-eval-after-load "bibtex"
+       (add-hook 'bibtex-mode-hook 'lsp)))
    #+END_SRC
 
 ** lsp-ui
@@ -150,6 +169,17 @@ binding for toggling org mode section comments is `C-;'.
    #+END_SRC
 
 ** Snippets
+
+** TODO Yasnippet
+   May have trouble with lsp integration
+   
+*** Installation
+    #+BEGIN_SRC emacs-lisp
+    (use-package yasnippet
+      :config
+      (yas-global-mode 1)
+      (setq yas-snippet-dirs '("~/.emacs.d/snippets")))
+    #+End_SRC
 
 * Major Modes
 ** Org Mode

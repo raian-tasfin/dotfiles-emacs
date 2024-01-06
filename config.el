@@ -37,23 +37,41 @@
   (helm-mode 1))
 
 (use-package lsp-mode
-:config
-(setq lsp-enable-on-type-formatting nil)
-(setq lsp-completion-provider :none))
+  :config
+  (setq lsp-enable-on-type-formatting nil)
+  ;; (setq lsp-completion-provider :capf)
+  (add-hook 'prog-mode-hook #'lsp))
 
 (use-package company
+  :init (global-set-key (kbd "C-<tab>") 'company-yasnippet) 
   :after lsp-mode
   :hook (prog-mode . company-mode)
   :bind (:map company-active-map
-	      ("<tab>" . company-complete-selection))
-  (:map lsp-mode-map
-        ("<tab>" . company-indent-or-complete-common))
+	      ("<tab>" . company-complete-selection)
+	      (:map lsp-mode-map
+		    ("<tab>" . company-indent-or-complete-common)))
   :custom
   (company-minimum-prefix-length 1)
-  (company-idle-delay 0.0))
+  (company-idle-delay 0.0)
+  (add-hook 'after-init-hook 'global-company-mode))
+
+(use-package lsp-latex
+  :config
+  (with-eval-after-load "tex-mode"
+    (add-hook 'tex-mode-hook 'lsp)
+    (add-hook 'latex-mode-hook 'lsp))
+  (with-eval-after-load "yatex"
+    (add-hook 'yatex-mode-hook 'lsp))
+  (with-eval-after-load "bibtex"
+    (add-hook 'bibtex-mode-hook 'lsp)))
 
 (use-package lsp-ui
 :hook (lsp-mode . lsp-ui-mode))
+
+(use-package yasnippet
+  :config
+  (yas-global-mode 1)
+  (setq yas-snippet-dirs '("~/.emacs.d/snippets")))
 
 (add-hook 'org-mode-hook #'org-num-mode)
 

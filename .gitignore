@@ -2,3 +2,4 @@
 ~\*
 ./auto-save-list/.*
 .lsp-session-v1
+.*~undo-tree~

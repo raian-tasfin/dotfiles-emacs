@@ -1,0 +1,24 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define newline   '\n'
+#define begend(x) (x).begin(), (x).end()
+#define int       int64_t
+#define debug(x)  cout<< ">>> " << #x << ": " << x << newline;32_t
+
+void solve_case()
+{
+        $0
+
+        return;
+}
+
+int32_t main()
+{
+        int cntCases; cin>> cntCases;
+        for(int caseNo = 1; caseNo <= cntCases; caseNo++) {
+                solve_case();
+        }
+
+        return 0;
+}
