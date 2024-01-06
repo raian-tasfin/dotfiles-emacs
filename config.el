@@ -27,6 +27,15 @@
 
 (use-package titlecase)
 
+(use-package helm
+  :ensure t
+  :config
+  (global-set-key (kbd "M-x") #'helm-M-x)
+  (global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
+  (global-set-key (kbd "C-x C-f") #'helm-find-files)
+  (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) 
+  (helm-mode 1))
+
 (use-package lsp-mode
 :config
 (setq lsp-enable-on-type-formatting nil)
@@ -100,5 +109,3 @@
 
 (dolist (hook '(text-mode-hook))
   (add-hook hook (lambda () (flyspell-mode 1))))
-
-(global-set-key (kbd "<delete>") 'delete-forward-char)
