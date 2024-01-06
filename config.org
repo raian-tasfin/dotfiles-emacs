@@ -12,6 +12,12 @@ binding for toggling org mode section comments is `C-;'.
   - [[#evil-mode][Evil Mode]]
   - [[#multiple-cursors][Multiple Cursors]]
   - [[#title-case][Title case]]
+- [[#auto-completion-and-lsp][Auto-completion and LSP]]
+  - [[#installing-lsp][Installing LSP]]
+  - [[#company-mode][company-mode]]
+  - [[#company-box][company-box]]
+  - [[#lsp-ui][lsp-ui]]
+  - [[#snippets][Snippets]]
 - [[#major-modes][Major Modes]]
   - [[#org-mode][Org Mode]]
   - [[#c-mode][C Mode]]
@@ -92,6 +98,45 @@ binding for toggling org mode section comments is `C-;'.
    #+BEGIN_SRC emacs-lisp
    (use-package titlecase)
    #+END_SRC
+
+* Auto-completion and LSP
+** Installing LSP
+   Here we install lsp and disable annoying auto-formatting. 
+   #+BEGIN_SRC emacs-lisp
+   (use-package lsp-mode
+   :config
+   (setq lsp-enable-on-type-formatting nil)
+   (setq lsp-completion-provider :none))
+   #+END_SRC
+
+** company-mode
+   Integrating with lsp.
+   #+BEGIN_SRC emacs-lisp
+   (use-package company
+     :after lsp-mode
+     :hook (prog-mode . company-mode)
+     :bind (:map company-active-map
+		 ("<tab>" . company-complete-selection))
+     (:map lsp-mode-map
+           ("<tab>" . company-indent-or-complete-common))
+     :custom
+     (company-minimum-prefix-length 1)
+     (company-idle-delay 0.0))
+   #+END_SRC
+
+** company-box
+   #+BEGIN_SRC emacs-lsip
+   (use-package company-box
+   :hook (company-mode . company-box-mode))
+   #+END_SRC
+
+** lsp-ui
+   #+BEGIN_SRC emacs-lisp
+   (use-package lsp-ui
+   :hook (lsp-mode . lsp-ui-mode))
+   #+END_SRC
+
+** Snippets
 
 * Major Modes
 ** Org Mode

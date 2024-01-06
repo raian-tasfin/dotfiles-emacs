@@ -27,6 +27,25 @@
 
 (use-package titlecase)
 
+(use-package lsp-mode
+:config
+(setq lsp-enable-on-type-formatting nil)
+(setq lsp-completion-provider :none))
+
+(use-package company
+  :after lsp-mode
+  :hook (prog-mode . company-mode)
+  :bind (:map company-active-map
+	      ("<tab>" . company-complete-selection))
+  (:map lsp-mode-map
+        ("<tab>" . company-indent-or-complete-common))
+  :custom
+  (company-minimum-prefix-length 1)
+  (company-idle-delay 0.0))
+
+(use-package lsp-ui
+:hook (lsp-mode . lsp-ui-mode))
+
 (add-hook 'org-mode-hook #'org-num-mode)
 
 (use-package toc-org
