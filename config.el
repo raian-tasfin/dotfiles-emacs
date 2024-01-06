@@ -53,7 +53,8 @@
 		    ("<tab>" . company-indent-or-complete-common)))
   :custom
   (company-minimum-prefix-length 1)
-  (company-idle-delay 0.0)
+  (company-idle-delay 0)
+  (company-dabrev-downcase 0)
   (add-hook 'after-init-hook 'global-company-mode))
 
 (use-package lsp-latex
