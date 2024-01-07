@@ -5,6 +5,7 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+	company-indent-or-complete-common
 	end-of-buffer
 	evil-delete-backward-char-and-join
 	evil-delete-char

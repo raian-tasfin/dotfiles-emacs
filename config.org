@@ -13,6 +13,7 @@ binding for toggling org mode section comments is `C-;'.
   - [[#multiple-cursors][Multiple Cursors]]
   - [[#title-case][Title case]]
   - [[#helm][Helm]]
+  - [[#whitspace-package][Whitspace Package]]
 - [[#auto-completion-and-lsp][Auto-completion and LSP]]
   - [[#installing-lsp][Installing LSP]]
   - [[#company-mode][company-mode]]
@@ -25,7 +26,10 @@ binding for toggling org mode section comments is `C-;'.
   - [[#org-mode][Org Mode]]
   - [[#c-mode][C Mode]]
   - [[#java][Java]]
+  - [[#makefile][Makefile]]
 - [[#default-emacs-options][Default Emacs Options]]
+  - [[#temporary-file-directory][Temporary File Directory]]
+  - [[#backup-settings][Backup Settings]]
 - [[#appearance][Appearance]]
   - [[#start-message][Start Message]]
   - [[#tool-bar][Tool Bar]]
@@ -115,6 +119,22 @@ binding for toggling org mode section comments is `C-;'.
      (helm-mode 1)) 
    #+END_SRC
    
+** Whitspace Package
+
+*** Ethan Whitspace Setup
+   #+BEGIN_SRC emacs-lisp
+   (use-package ethan-wspace
+     :ensure t
+     :config
+     (setq mode-require-final-newline nil)
+     (global-ethan-wspace-mode 1))
+   #+END_SRC
+
+*** Ethan Cleanup Spaces on Save
+    #+BEGIN_SRC emacs-lisp
+    (add-hook 'after-save-hook #'ethan-wspace-clean-all)
+    #+END_SRC
+
 * Auto-completion and LSP
 ** Installing LSP
    Here we install lsp and disable annoying auto-formatting. 
@@ -216,12 +236,35 @@ binding for toggling org mode section comments is `C-;'.
      (add-hook 'java-mode-hook #'lsp))
    #+END_SRC
 
-* Default Emacs Options
-  #+BEGIN_SRC emacs-lisp
-  (setq auto-save-file-name-transforms
-	`((".*" ,temporary-file-directory t)))
-  #+END_SRC
+** Makefile
 
+*** Hook LSP
+    #+BEGIN_SRC emacs-lisp
+    (add-hook 'makefile-gmake-mode-hook #'lsp)
+    #+END_SRC
+
+*** Cleanup
+    #+BEGIN_SRC emacs-lisp
+    (setq makefile-cleanup-continuations t) 
+    #+END_SRC
+
+* Default Emacs Options
+** Temporary File Directory
+   #+BEGIN_SRC emacs-lisp
+   (setq auto-save-file-name-transforms
+	 `((".*" ,temporary-file-directory t)))
+   #+END_SRC
+** Backup Settings
+   #+BEGIN_SRC emacs-lisp
+   (setq
+   backup-by-copying t      ; don't clobber symlinks
+   backup-directory-alist
+    '(("." . "~/.saves/"))    ; don't litter my fs tree
+   delete-old-versions t
+   kept-new-versions 6
+   kept-old-versions 2
+   version-control nil)       ; don't versioned backups
+   #+END_SRC
 * Appearance
 ** Start Message
    Hide the starting message message
@@ -341,6 +384,11 @@ binding for toggling org mode section comments is `C-;'.
 *** Auto Fill Mode
     #+BEGIN_SRC emacs-lisp
     (setq-default auto-fill-function 'do-auto-fill)
+    #+END_SRC
+
+*** commenting line
+    #+BEGIN_SRC emacs-lisp
+    (global-set-key (kbd "M-;") 'comment-line) 
     #+END_SRC
 
 *** Electric Pair Mode

@@ -36,6 +36,14 @@
   (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) 
   (helm-mode 1))
 
+(use-package ethan-wspace
+  :ensure t
+  :config
+  (setq mode-require-final-newline nil)
+  (global-ethan-wspace-mode 1))
+
+(add-hook 'after-save-hook #'ethan-wspace-clean-all)
+
 (use-package lsp-mode
   :config
   (setq lsp-enable-on-type-formatting nil)
@@ -87,8 +95,21 @@
   :config
   (add-hook 'java-mode-hook #'lsp))
 
+(add-hook 'makefile-gmake-mode-hook #'lsp)
+
+(setq makefile-cleanup-continuations t)
+
 (setq auto-save-file-name-transforms
       `((".*" ,temporary-file-directory t)))
+
+(setq
+backup-by-copying t      ; don't clobber symlinks
+backup-directory-alist
+ '(("." . "~/.saves/"))    ; don't litter my fs tree
+delete-old-versions t
+kept-new-versions 6
+kept-old-versions 2
+version-control nil)       ; don't versioned backups
 
 (setq inhibit-startup-message t)
 
@@ -128,6 +149,8 @@
 (setq default-tab-width 4)
 
 (setq-default auto-fill-function 'do-auto-fill)
+
+(global-set-key (kbd "M-;") 'comment-line)
 
 (electric-pair-mode 1)
 
