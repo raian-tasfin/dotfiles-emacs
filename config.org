@@ -1,4 +1,4 @@
-#+TITLE: Emacs Config 
+#+TITLE: Emacs Config
 #+AUTHOR: Raian Tasfin
 #+EMAIL: raian.csecu@gmail.com
 #+OPTIONS: num:nil
@@ -72,18 +72,18 @@ binding for toggling org mode section comments is `C-;'.
       :init
       (evil-mode 1))
     #+END_SRC
-    
+
 ** Multiple Cursors
    With bar cursors, the extra cursors are not visible. To make it
    visible the extra options are necessary. Although, I still cannot
-   find a way to make the extra cursors thick.  
-   
+   find a way to make the extra cursors thick.
+
    #+BEGIN_SRC emacs-lisp
    (use-package multiple-cursors
      :init
      (setq-default cursor-type '(bar . 2.5))
      (custom-set-faces
-      '(mc/cursor-bar-face 
+      '(mc/cursor-bar-face
         ((t(:background "brown"))))))
    #+END_SRC
 
@@ -115,10 +115,10 @@ binding for toggling org mode section comments is `C-;'.
      (global-set-key (kbd "M-x") #'helm-M-x)
      (global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
      (global-set-key (kbd "C-x C-f") #'helm-find-files)
-     (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) 
-     (helm-mode 1)) 
+     (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
+     (helm-mode 1))
    #+END_SRC
-   
+
 ** Whitspace Package
 
 *** Ethan Whitspace Setup
@@ -137,7 +137,7 @@ binding for toggling org mode section comments is `C-;'.
 
 * Auto-completion and LSP
 ** Installing LSP
-   Here we install lsp and disable annoying auto-formatting. 
+   Here we install lsp and disable annoying auto-formatting.
    #+BEGIN_SRC emacs-lisp
    (use-package lsp-mode
      :config
@@ -151,7 +151,7 @@ binding for toggling org mode section comments is `C-;'.
    show yasnippet entries on tab. The shortcut for that is C-c y.
    #+BEGIN_SRC emacs-lisp
    (use-package company
-     :init (global-set-key (kbd "C-<tab>") 'company-yasnippet) 
+     :init (global-set-key (kbd "C-<tab>") 'company-yasnippet)
      :after lsp-mode
      :config (global-company-mode)
      :hook (prog-mode . company-mode)
@@ -165,7 +165,7 @@ binding for toggling org mode section comments is `C-;'.
      (company-dabrev-downcase 0)
      (add-hook 'after-init-hook 'global-company-mode))
    #+END_SRC
-   
+
 ** company-box
    #+BEGIN_SRC emacs-lsip
    (use-package company-box
@@ -195,7 +195,7 @@ binding for toggling org mode section comments is `C-;'.
 
 ** TODO Yasnippet
    May have trouble with lsp integration
-   
+
 *** Installation
     #+BEGIN_SRC emacs-lisp
     (use-package yasnippet
@@ -229,7 +229,7 @@ binding for toggling org mode section comments is `C-;'.
     #+BEGIN_SRC emacs-lisp
     (setq-default c-basic-offset 4)
     #+END_SRC
-** Java 
+** Java
    #+BEGIN_SRC emacs-lisp
    (use-package lsp-java
      :config
@@ -245,7 +245,7 @@ binding for toggling org mode section comments is `C-;'.
 
 *** Cleanup
     #+BEGIN_SRC emacs-lisp
-    (setq makefile-cleanup-continuations t) 
+    (setq makefile-cleanup-continuations t)
     #+END_SRC
 
 * Default Emacs Options
@@ -268,7 +268,7 @@ binding for toggling org mode section comments is `C-;'.
 * Appearance
 ** Start Message
    Hide the starting message message
-   
+
    #+BEGIN_SRC emacs-lisp
    (setq inhibit-startup-message t)
    #+END_SRC
@@ -276,25 +276,25 @@ binding for toggling org mode section comments is `C-;'.
 ** COMMENT Scratch Message
    For now I want the default scratch message to signal that emacs has
    been loaded successfully and we are on the scratch buffer.
-   
-   #+BEGIN_SRC emacs-lisp 
+
+   #+BEGIN_SRC emacs-lisp
    (setq initial-scratch-message nil)
    #+END_SRC
 
 ** Tool Bar
    Hide graphic tool bar
 
-   #+BEGIN_SRC emacs-lisp 
+   #+BEGIN_SRC emacs-lisp
    (tool-bar-mode -1)
    #+END_SRC
 
 ** Menu Bar
    Hide graphic menu bar
 
-   #+BEGIN_SRC emacs-lisp 
+   #+BEGIN_SRC emacs-lisp
    (menu-bar-mode -1)
    #+END_SRC
-   
+
 ** Typeface and Font
    #+BEGIN_SRC emacs-lisp
    (set-frame-font "Fira Code-11.5" nil t)
@@ -309,7 +309,7 @@ binding for toggling org mode section comments is `C-;'.
 ** Theme
    To enable or disable any option, comment or uncomment that section
    respectively. The current shortcut for toggling comments is C-;
-   . For confirmation, see 
+   . For confirmation, see
 
 *** modus-operandi-tinted
     A modus light tinted theme. The default right now.
@@ -350,7 +350,7 @@ binding for toggling org mode section comments is `C-;'.
    of it and comment the configs for other themes.
 
 ** Spaceline
-   Ripped off the internet 
+   Ripped off the internet
 
    #+BEGIN_SRC emacs-lisp
    (use-package spaceline
@@ -359,7 +359,7 @@ binding for toggling org mode section comments is `C-;'.
      (spaceline-toggle-minor-modes-off)
      (spaceline-toggle-buffer-encoding-off)
      (spaceline-toggle-buffer-encoding-abbrev-off)
-     (setq spaceline-highlight-face-func 
+     (setq spaceline-highlight-face-func
 	   'spaceline-highlight-face-evil-state)
      (spaceline-define-segment line-column
        "The current line and column numbers."
@@ -373,7 +373,7 @@ binding for toggling org mode section comments is `C-;'.
      (spaceline-toggle-time-on)
      (spaceline-emacs-theme 'date 'time))
    #+END_SRC
-   
+
 * Editing
 ** Default Indentation
    #+BEGIN_SRC emacs-lisp
@@ -388,7 +388,7 @@ binding for toggling org mode section comments is `C-;'.
 
 *** commenting line
     #+BEGIN_SRC emacs-lisp
-    (global-set-key (kbd "M-;") 'comment-line) 
+    (global-set-key (kbd "M-;") 'comment-line)
     #+END_SRC
 
 *** Electric Pair Mode
@@ -402,4 +402,3 @@ binding for toggling org mode section comments is `C-;'.
     (dolist (hook '(text-mode-hook))
       (add-hook hook (lambda () (flyspell-mode 1))))
     #+END_SRC
-

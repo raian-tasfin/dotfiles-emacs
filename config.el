@@ -13,7 +13,7 @@
   :init
   (setq-default cursor-type '(bar . 2.5))
   (custom-set-faces
-   '(mc/cursor-bar-face 
+   '(mc/cursor-bar-face
      ((t(:background "brown"))))))
 
 (use-package multiple-cursors
@@ -33,7 +33,7 @@
   (global-set-key (kbd "M-x") #'helm-M-x)
   (global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
   (global-set-key (kbd "C-x C-f") #'helm-find-files)
-  (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) 
+  (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
   (helm-mode 1))
 
 (use-package ethan-wspace
@@ -51,7 +51,7 @@
   (add-hook 'prog-mode-hook #'lsp))
 
 (use-package company
-  :init (global-set-key (kbd "C-<tab>") 'company-yasnippet) 
+  :init (global-set-key (kbd "C-<tab>") 'company-yasnippet)
   :after lsp-mode
   :config (global-company-mode)
   :hook (prog-mode . company-mode)
@@ -132,7 +132,7 @@ version-control nil)       ; don't versioned backups
   (spaceline-toggle-minor-modes-off)
   (spaceline-toggle-buffer-encoding-off)
   (spaceline-toggle-buffer-encoding-abbrev-off)
-  (setq spaceline-highlight-face-func 
+  (setq spaceline-highlight-face-func
 	'spaceline-highlight-face-evil-state)
   (spaceline-define-segment line-column
     "The current line and column numbers."
