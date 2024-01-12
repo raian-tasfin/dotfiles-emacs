@@ -9,10 +9,19 @@
 	end-of-buffer
 	evil-delete-backward-char-and-join
 	evil-delete-char
+	evil-end-of-line
+	evil-first-non-blank
+	evil-forward-char
+	evil-forward-word-end
+	evil-insert
+	evil-replace
+	evil-visual-char
+	helm-M-x
 	indent-for-tab-command
 	org-beginning-of-line
 	org-cycle
 	org-end-of-line
+	org-self-insert-command
 	))
 
 (setq mc/cmds-to-run-once

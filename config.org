@@ -7,6 +7,12 @@ To turn any feature on/off comment/uncomment the section. The key
 binding for toggling org mode section comments is `C-;'.
 
 * Table of Contents                                                     :TOC:
+- [[#major-modes][Major Modes]]
+  - [[#org-mode][Org Mode]]
+  - [[#c-mode][C Mode]]
+  - [[#java][Java]]
+  - [[#makefile][Makefile]]
+  - [[#latex-mode][LaTeX Mode]]
 - [[#minor-editing-modes][Minor Editing Modes]]
   - [[#drag-stuff-mode][Drag Stuff Mode]]
   - [[#evil-mode][Evil Mode]]
@@ -22,11 +28,7 @@ binding for toggling org mode section comments is `C-;'.
   - [[#lsp-ui][lsp-ui]]
   - [[#snippets][Snippets]]
   - [[#yasnippet][Yasnippet]]
-- [[#major-modes][Major Modes]]
-  - [[#org-mode][Org Mode]]
-  - [[#c-mode][C Mode]]
-  - [[#java][Java]]
-  - [[#makefile][Makefile]]
+  - [[#flycheck][Flycheck]]
 - [[#default-emacs-options][Default Emacs Options]]
   - [[#temporary-file-directory][Temporary File Directory]]
   - [[#backup-settings][Backup Settings]]
@@ -41,6 +43,63 @@ binding for toggling org mode section comments is `C-;'.
 - [[#editing][Editing]]
   - [[#default-indentation][Default Indentation]]
   - [[#small-default-configs][Small Default Configs]]
+
+* Major Modes
+** Org Mode
+   Minor options for org mode.
+*** org-num-mode
+    Show section numbers in org mode by default.
+
+    #+BEGIN_SRC emacs-lisp
+    (add-hook 'org-mode-hook #'org-num-mode)
+    #+END_SRC
+
+*** toc-org
+    #+BEGIN_SRC emacs-lisp
+    (use-package toc-org
+      :config
+      (add-hook 'org-mode-hook 'toc-org-mode))
+    #+END_SRC
+
+** C Mode
+*** Indentation
+    :PROPERTIES:
+    :CUSTOM_ID: indentation
+    :END:
+    #+BEGIN_SRC emacs-lisp
+    (setq-default c-basic-offset 4)
+    #+END_SRC
+** Java
+   #+BEGIN_SRC emacs-lisp
+   (use-package lsp-java
+     :config
+     (add-hook 'java-mode-hook #'lsp))
+   #+END_SRC
+
+** Makefile
+
+*** Hook LSP
+    #+BEGIN_SRC emacs-lisp
+    (add-hook 'makefile-gmake-mode-hook #'lsp)
+    #+END_SRC
+
+*** Cleanup
+    #+BEGIN_SRC emacs-lisp
+    (setq makefile-cleanup-continuations t)
+    #+END_SRC
+
+
+** LaTeX Mode
+
+*** Treat Certain Environments as Math
+    #+BEGIN_SRC emacs-lisp
+    (add-hook 'LaTeX-mode-hook 'add-my-latex-environments)
+    (defun add-my-latex-environments ()
+    (LaTeX-add-environments
+    '("align" LaTeX-env-label)
+    '("align*" LaTeX-env-label)
+    ))
+    #+END_SRC
 
 * Minor Editing Modes
 ** Drag Stuff Mode
@@ -143,7 +202,9 @@ binding for toggling org mode section comments is `C-;'.
      :config
      (setq lsp-enable-on-type-formatting nil)
      ;; (setq lsp-completion-provider :capf)
-     (add-hook 'prog-mode-hook #'lsp))
+     (add-hook 'prog-mode-hook #'lsp)
+     (add-hook 'prog-mode-hook #'lsp-ui-mode)
+     )
    #+END_SRC
 
 ** company-mode
@@ -187,8 +248,29 @@ binding for toggling org mode section comments is `C-;'.
 
 ** lsp-ui
    #+BEGIN_SRC emacs-lisp
-   (use-package lsp-ui
-   :hook (lsp-mode . lsp-ui-mode))
+     (use-package lsp-ui
+       :hook (lsp-mode . lsp-ui-mode)
+       :config
+       (setq lsp-enable-symbol-highlighting 1)
+       (setq lsp-ui-doc-enable 1)
+       ;; (setq lsp-ui-doc-show-with-cursor 1)
+       (setq lsp-ui-doc-show-with-mouse 1)
+       (setq lsp-lens-enable 1)
+       (setq lsp-headerline-breadcrumb-enable 1)
+       (setq lsp-ui-sideline-enable 1)
+       ;; (setq lsp-ui-sideline-show-code-actions 1)
+       (setq lsp-ui-sideline-enable 1)
+       (setq lsp-ui-sideline-show-hover 1)
+       ;; (setq lsp-modeline-code-actions-enable 1)
+       (setq lsp-ui-sideline-enable 1)
+       (setq lsp-ui-sideline-show-diagnostics 1)
+       (setq lsp-eldoc-enable-hover 1)
+       (setq lsp-modeline-diagnostics-enable 1)
+       ;; (setq lsp-signature-auto-activate 1)
+       ;; (setq lsp-signature-render-documentation 1)
+       ;; (setq lsp-completion-show-detail 1)
+       ;; (setq lsp-completion-show-kind 1)
+       )
    #+END_SRC
 
 ** Snippets
@@ -204,49 +286,13 @@ binding for toggling org mode section comments is `C-;'.
       (setq yas-snippet-dirs '("~/.emacs.d/snippets")))
     #+End_SRC
 
-* Major Modes
-** Org Mode
-   Minor options for org mode.
-*** org-num-mode
-    Show section numbers in org mode by default.
-
+** Flycheck
+   Setup flycheck
     #+BEGIN_SRC emacs-lisp
-    (add-hook 'org-mode-hook #'org-num-mode)
-    #+END_SRC
-
-*** toc-org
-    #+BEGIN_SRC emacs-lisp
-    (use-package toc-org
-      :config
-      (add-hook 'org-mode-hook 'toc-org-mode))
-    #+END_SRC
-
-** C Mode
-*** Indentation
-    :PROPERTIES:
-    :CUSTOM_ID: indentation
-    :END:
-    #+BEGIN_SRC emacs-lisp
-    (setq-default c-basic-offset 4)
-    #+END_SRC
-** Java
-   #+BEGIN_SRC emacs-lisp
-   (use-package lsp-java
-     :config
-     (add-hook 'java-mode-hook #'lsp))
-   #+END_SRC
-
-** Makefile
-
-*** Hook LSP
-    #+BEGIN_SRC emacs-lisp
-    (add-hook 'makefile-gmake-mode-hook #'lsp)
-    #+END_SRC
-
-*** Cleanup
-    #+BEGIN_SRC emacs-lisp
-    (setq makefile-cleanup-continuations t)
-    #+END_SRC
+    (use-package flycheck)
+    (require 'flycheck)
+    (global-flycheck-mode)
+    #+End_SRC
 
 * Default Emacs Options
 ** Temporary File Directory

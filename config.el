@@ -1,3 +1,26 @@
+(add-hook 'org-mode-hook #'org-num-mode)
+
+(use-package toc-org
+  :config
+  (add-hook 'org-mode-hook 'toc-org-mode))
+
+(setq-default c-basic-offset 4)
+
+(use-package lsp-java
+  :config
+  (add-hook 'java-mode-hook #'lsp))
+
+(add-hook 'makefile-gmake-mode-hook #'lsp)
+
+(setq makefile-cleanup-continuations t)
+
+(add-hook 'LaTeX-mode-hook 'add-my-latex-environments)
+(defun add-my-latex-environments ()
+(LaTeX-add-environments
+'("align" LaTeX-env-label)
+'("align*" LaTeX-env-label)
+))
+
 (use-package drag-stuff
   :config
   (drag-stuff-global-mode 1)
@@ -48,7 +71,9 @@
   :config
   (setq lsp-enable-on-type-formatting nil)
   ;; (setq lsp-completion-provider :capf)
-  (add-hook 'prog-mode-hook #'lsp))
+  (add-hook 'prog-mode-hook #'lsp)
+  (add-hook 'prog-mode-hook #'lsp-ui-mode)
+  )
 
 (use-package company
   :init (global-set-key (kbd "C-<tab>") 'company-yasnippet)
@@ -76,28 +101,37 @@
     (add-hook 'bibtex-mode-hook 'lsp)))
 
 (use-package lsp-ui
-:hook (lsp-mode . lsp-ui-mode))
+  :hook (lsp-mode . lsp-ui-mode)
+  :config
+  (setq lsp-enable-symbol-highlighting 1)
+  (setq lsp-ui-doc-enable 1)
+  ;; (setq lsp-ui-doc-show-with-cursor 1)
+  (setq lsp-ui-doc-show-with-mouse 1)
+  (setq lsp-lens-enable 1)
+  (setq lsp-headerline-breadcrumb-enable 1)
+  (setq lsp-ui-sideline-enable 1)
+  ;; (setq lsp-ui-sideline-show-code-actions 1)
+  (setq lsp-ui-sideline-enable 1)
+  (setq lsp-ui-sideline-show-hover 1)
+  ;; (setq lsp-modeline-code-actions-enable 1)
+  (setq lsp-ui-sideline-enable 1)
+  (setq lsp-ui-sideline-show-diagnostics 1)
+  (setq lsp-eldoc-enable-hover 1)
+  (setq lsp-modeline-diagnostics-enable 1)
+  ;; (setq lsp-signature-auto-activate 1)
+  ;; (setq lsp-signature-render-documentation 1)
+  ;; (setq lsp-completion-show-detail 1)
+  ;; (setq lsp-completion-show-kind 1)
+  )
 
 (use-package yasnippet
   :config
   (yas-global-mode 1)
   (setq yas-snippet-dirs '("~/.emacs.d/snippets")))
 
-(add-hook 'org-mode-hook #'org-num-mode)
-
-(use-package toc-org
-  :config
-  (add-hook 'org-mode-hook 'toc-org-mode))
-
-(setq-default c-basic-offset 4)
-
-(use-package lsp-java
-  :config
-  (add-hook 'java-mode-hook #'lsp))
-
-(add-hook 'makefile-gmake-mode-hook #'lsp)
-
-(setq makefile-cleanup-continuations t)
+(use-package flycheck)
+(require 'flycheck)
+(global-flycheck-mode)
 
 (setq auto-save-file-name-transforms
       `((".*" ,temporary-file-directory t)))
